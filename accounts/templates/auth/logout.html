@@ -1,0 +1,26 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+خروج
+{% endblock title %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block styles %}
+{% endblock styles %}
+
+{% block content %}
+<h1>واقعا میخوای خارج شی؟</h1>
+<form class="form-control" action='' method='post' enctype='multipart/form-data'>
+{% csrf_token %}
+<button class="btn btn-danger" type='submit'>بله،می خواهم خارج شوم</button>
+<hr>
+<a class="btn btn-success" href="{% url 'core:home' %}">نه،من را به صفحه ی اصلی برگردان</a>
+</form>
+{% endblock content %}
+
+{% block scripts %}
+
+{% endblock scripts %}

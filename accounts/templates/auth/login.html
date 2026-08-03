@@ -1,0 +1,23 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+ورود
+{% endblock title %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block styles %}
+{% endblock styles %}
+
+{% block content %}
+<form id="form" class="form-control" action='' method='post' enctype='multipart/form-data'>
+{% csrf_token %}
+{{ form.as_p }}
+<button class='btn btn-success' type='submit'>تایید</button>
+</form>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

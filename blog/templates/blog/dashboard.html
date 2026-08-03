@@ -1,0 +1,39 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block styles %}
+{% endblock styles %}
+
+{% block content %}
+<div>
+    <h2>پست ها:</h2>
+    <a href="#">مشاهده ی همه> </a>
+    <h3>آمار کلی</h3>
+    <ul>
+        <li>تعداد پست ها:{{ post_cnt }}</li>
+        <li>تعداد پست های منتشر شده:{{ post_verify_cnt }}</li>
+        <li>تعداد نظرات زیر پست ها:</li>
+        <li>تعداد کلمات تایپ شده تا الان:</li>
+        <li>تعداد بازدید پست ها :</li>
+    </ul>
+</div>
+<div>
+    <h2>نظرات:</h2>
+    <a href="#">مشاهده ی همه> </a>
+
+    <h3>اطلاعات کلی</h3>
+    <ul>
+        <li>تعداد نظرات نوشته شده:</li>
+        <li>تعداد نظرات منتشر شده:</li>
+    </ul>
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

@@ -1,0 +1,59 @@
+{% load i18n %}
+
+<footer class="bg-dark text-light border-top border-warning">
+
+    <div class="container py-5">
+
+        <div class="row g-4 text-end">
+
+            <div class="col-12 col-md-3">
+                <h5 class="text-warning">آزمایشگاه توسعه</h5>
+                <p class="text-secondary small">
+                    توسعه سریع تر از چیزی هست که فکر می کنی!
+                </p>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <h6 class="text-warning">لینک های کاربردی</h6>
+                <ul class="nav flex-column">
+                    <li><a class="nav-link text-secondary p-0" href="#">وبلاگ</a></li>
+                    <li><a class="nav-link text-secondary p-0" href="#">DevGit</a></li>
+                    <li><a class="nav-link text-secondary p-0" href="#">پرسش و پاسخ</a></li>
+                </ul>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <h6 class="text-warning">حساب کاربری</h6>
+                <ul class="nav flex-column">
+                {% if user.is_authenticated %}
+                    <li><a class="nav-link text-secondary p-0" href="{% url 'accounts:profile' user.username %}">پروفایل</a></li>
+                    <li><a class="nav-link text-secondary p-0" href="{% url 'accounts:dashboard' %}">داشبورد</a></li>
+                    <li><a class="nav-link text-secondary p-0" href="{% url 'accounts:logout' %}">خروج</a></li>
+                    {% if user.is_staff %}
+                        <li><a class="nav-link text-secondary p-0" href="{% url 'admin:index' %}">پنل ادمین</a></li>
+                    {% endif %}
+                {% else %}
+                    <li><a class="nav-link text-secondary p-0" href="{% url 'accounts:login' %}">ورود</a></li>
+                    <li><a class="nav-link text-secondary p-0" href="{% url 'accounts:signup' %}">ثبت نام</a></li>
+                {% endif %}
+                </ul>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <h6 class="text-warning">شبکه های اجتماعی</h6>
+                <ul class="nav flex-column">
+                    <li><a class="nav-link text-secondary p-0" href="#">بله</a></li>
+                    <li><a class="nav-link text-secondary p-0" href="#">تلگرام</a></li>
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="text-center border-top border-secondary mt-4 pt-4">
+            <span class="text-warning fw-bold fs-5">
+                &copy; {% now "Y" %} آزمایشگاه توسعه | تمام حقوق محفوظ است
+            </span>
+        </div>
+
+    </div>
+</footer>

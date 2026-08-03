@@ -1,0 +1,58 @@
+<h5 class="text-warning mb-4">آزمایشگاه توسعه</h5>
+<div class="accordion accordion-flush" id="sidebarAccordion">
+    <div class="accordion-item bg-dark border-secondary">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse"
+                data-bs-target="#blog">
+                وبلاگ
+            </button>
+        </h2>
+
+        <div id="blog" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+            <div class="accordion-body">
+                <ul class="nav flex-column">
+                    <li><a href="{% url 'blog:index' %}" class="nav-link text-light">صفحه ی اصلی</a></li>
+                    <li><a href="#" class="nav-link text-light">داشبورد</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item bg-dark border-secondary">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse"
+                data-bs-target="#qa">
+                پرسش و پاسخ
+            </button>
+        </h2>
+
+        <div id="qa" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+            <div class="accordion-body">
+                <ul class="nav flex-column">
+                    <li><a href="#" class="nav-link text-light">صفحه ی اصلی</a></li>
+                    <li><a href="#" class="nav-link text-light">داشبورد</a></li>
+                    <li><a href="#" class="nav-link text-light">نوشتن سوال جدید</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item bg-dark border-secondary">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed bg-dark text-light" type="button" data-bs-toggle="collapse"
+                data-bs-target="#git">
+                DevGit
+            </button>
+        </h2>
+
+        <div id="git" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
+            <div class="accordion-body">
+                <ul class="nav flex-column">
+                    <li><a href="#" class="nav-link text-light">صفحه ی اصلی</a></li>
+                    <li><a href="#" class="nav-link text-light">داشبورد</a></li>
+                    <li><a href="#" class="nav-link text-light">ساخت مخزن</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>آزمایشگاه توسعه |{% block title %}{% endblock %}</title>
+
+    {% if LANGUAGE_CODE == "fa" %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.rtl.min.css' %}">
+    {% else %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    {% endif %}
+
+    <link rel="stylesheet" href="{% static 'css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+</head>
+
+<body data-bs-theme="dark" class="d-flex flex-column min-vh-100">
+
+    {% include "base/header.html" %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <aside class="col-12 col-md-3 col-lg-2 bg-dark text-light border-warning">
+            {% include "base/sidebar.html" %}
+            </aside>
+            <main class="col-12 col-md-9 col-lg-10 bg-dark text-light">
+                {% if messages %}
+                <ul>
+                {% for message in messages %}
+                    <li style="list-style: none;" class="alert alert-{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+                </ul>
+                {% endif %}
+                {% block content %}{% endblock %}
+            </main>
+
+        </div>
+    </div>
+    {% include "base/footer.html" %}
+
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+</body>
+
+</html>

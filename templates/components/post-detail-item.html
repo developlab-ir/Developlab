@@ -1,0 +1,55 @@
+<style>
+    .post-summary {
+        background-color: #2d3237;
+        border-radius: 10px;
+        padding: 2%;
+    }
+
+    .thumbnail {
+        position: relative;
+        background-image: url("{{ post.thumbnail.url }}");
+        background-size: cover;
+        background-position: center;
+        height: 300px;
+        border-radius: 10px;
+    }
+
+    .thumbnail::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 0, 0, .45);
+        border-radius: inherit;
+    }
+
+    .thumbnail h1 {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+        color: #fff;
+        z-index: 1;
+    }
+</style>
+<section class="post">
+    <div class="img-fluid w-100 thumbnail">
+        <h1>{{ post.title }}</h1>
+    </div>
+
+    <br>
+
+    {% if post.summary %}
+    <div class="post-summary">
+        <h2>خلاصه پست</h2>
+        <p>{{ post.summary }}</p>
+    </div>
+    {% endif %}
+
+    <div class="post-description">
+        {{ post.description }}
+    </div>
+    <hr>
+    <div id="comments">
+        <h3>نظرات</h3>
+    </div>
+
+</section>

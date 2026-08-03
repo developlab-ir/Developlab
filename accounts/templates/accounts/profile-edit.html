@@ -1,0 +1,24 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+ویرایش پروفایل
+{% endblock title %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block styles %}
+{% endblock styles %}
+
+{% block content %}
+<h1>ویرایش پروفایل</h1>
+<form class='form-control' action='' method='post' enctype='multipart/form-data'>
+{% csrf_token %}
+{{ form.as_p }}
+<button type='submit'>تایید</button>
+</form>
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

@@ -1,0 +1,21 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block styles %}
+{% endblock styles %}
+
+{% block content %}
+<h1>وبلاگ</h1>
+<h2>پست های اخیر</h2>
+<a href="{% url 'blog:list' %}">مشاهده ی همه></a>
+{% include "components/post-list.html" %}
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

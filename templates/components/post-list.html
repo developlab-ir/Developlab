@@ -1,0 +1,7 @@
+<div class="row" style="padding:1%;">
+{% for post in posts %}
+{% include "components/post-list-item.html" %}
+{% empty %}
+<h4 style="color:red;">هیچ پستی یافت نشد</h4>
+{% endfor %}
+</div>
