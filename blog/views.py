@@ -1,5 +1,5 @@
 from django.views import generic
-from .models import Post
+from .models import Post,Comment
 from .forms import PostForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -29,8 +29,18 @@ class PostDetailView(generic.DetailView):
     model = Post
     pk_url_kwarg = "pk"
 
+    def get_queryset(self):
+        query = Post.objects.filter(id=self.kwargs.get(self.pk_url_kwarg),is_active=True)
+        return query
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["comments"] = Comment.objects.filter(status="okay",reply_to__isnull=True)
+
+        return context
+
 class PostCreateView(LoginRequiredMixin,generic.CreateView):
-    template_name = "blog/post-create.html"
+    template_name = "blog/post-create-or-edit.html"
     model = Post
     form_class = PostForm
     success_url = reverse_lazy("blog:list")
@@ -40,16 +50,21 @@ class PostCreateView(LoginRequiredMixin,generic.CreateView):
         return super().form_valid(form)
     
 class PostUpdateView(LoginRequiredMixin,generic.UpdateView):
-    template_name = "blog/post-update.html"
+    template_name = "blog/post-create-or-edit.html"
     model = Post
     form_class = PostForm
     
     success_url = reverse_lazy("blog:list")
 
     def dispatch(self, request, *args, **kwargs):
-        if not Post.objects.filter(id=self.kwargs.get(self.pk_url_kwarg),author=request.user).exists():
+        query = Post.objects.filter(id=self.kwargs.get(self.pk_url_kwarg),author=request.user)
+        if not query.exists():
             messages.error(request,"شما نویسنده ی این پست نیستید")
             return redirect(self.success_url)
+        if query.filter(is_active=False):
+            messages.error(request,"این پست در دسترس نیست")
+            return redirect(self.success_url)
+
         return super().dispatch(request, *args, **kwargs)
 
 class PostDeleteView(LoginRequiredMixin,generic.DeleteView):
@@ -58,10 +73,16 @@ class PostDeleteView(LoginRequiredMixin,generic.DeleteView):
     success_url = reverse_lazy("blog:list")
 
     def dispatch(self, request, *args, **kwargs):
-        if not Post.objects.filter(id=self.kwargs.get(self.pk_url_kwarg),author=request.user).exists():
+        query = Post.objects.filter(id=self.kwargs.get(self.pk_url_kwarg),author=request.user)
+        if not query.exists():
             messages.error(request,"شما نویسنده ی این پست نیستید")
             return redirect(self.success_url)
+        if query.filter(is_active=False):
+            messages.error(request,"این پست در دسترس نیست")
+            return redirect(self.success_url)
+
         return super().dispatch(request, *args, **kwargs)
+
 
 class BlogDashboardView(LoginRequiredMixin,generic.TemplateView):
     template_name = "blog/dashboard.html"

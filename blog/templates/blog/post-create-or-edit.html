@@ -1,0 +1,35 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{% if post.pk %}
+ویرایش پست {{ post.title }}
+{% else %}
+نوشتن پست جدید
+{% endif %}
+{% endblock title %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block styles %}
+{% endblock styles %}
+
+{% block content %}
+<h1>
+{% if post.pk %}
+ویرایش پست {{ post.title }}
+{% else %}
+نوشتن پست جدید
+{% endif %}
+</h1>
+<form class='form-control' action='' method='post' enctype='multipart/form-data'>
+{% csrf_token %}
+{{ form.as_p }}
+<button class='btn btn-warning' type='submit'>ثبت پست</button>
+</form>
+
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

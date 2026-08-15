@@ -36,8 +36,9 @@ class Comment(models.Model):
         ("in_review","در حال بررسی"),
         ("okay","مورد تایید"),
     )
-    description = models.TextField(verbose_name="توضیحات",)
+    description = models.TextField(verbose_name="توضیحات")
 
+    reply_to = models.ForeignKey("self",on_delete=models.CASCADE,verbose_name="نسبت به",blank=True,null=True,related_name='replies')
     writer = models.ForeignKey("accounts.CustomUser",on_delete=models.CASCADE,verbose_name="نویسنده")
     post = models.ForeignKey(Post,on_delete=models.CASCADE,verbose_name="پست")
 
@@ -56,3 +57,4 @@ class Comment(models.Model):
         if description_length >= 40:
             return f"{self.description[:40]}..."
         return self.description
+

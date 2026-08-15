@@ -1,0 +1,21 @@
+{% load humanize %}
+<div class="card {% if comment.is_pin %}pin-comment{% else %}comment{% endif %}">
+    <div class="comment-writer">
+    {% if comment.writer.avatar %}
+        <img src="{{ comment.writer.avatar.url }}" alt="{{ comment.writer }}">    
+    {% endif %}
+        <h5 class="card-header">{{ comment.writer }}</h5>
+    </div>
+    <div class="comment-content" style="padding:10px;">
+        <span class="card-text">{{ comment.description }}</span>
+        <br>
+        <span class="text-body-secondary">{{ comment.write_at|naturaltime }}</span>
+    </div>
+    {% if comment.replies.exists %}
+        <ul class="list-unstyled ps-4 mt-2">
+            {% for child in comment.replies.all %}
+                {% include "components/comment-component.html" with comment=child article=article %}
+            {% endfor %}
+        </ul>
+    {% endif %}
+</div>

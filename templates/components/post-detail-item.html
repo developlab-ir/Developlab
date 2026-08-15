@@ -1,3 +1,5 @@
+{% load humanize %}
+
 <style>
     .post-summary {
         background-color: #2d3237;
@@ -47,9 +49,18 @@
     <div class="post-description">
         {{ post.description }}
     </div>
+    
+    <br>
+    
+    <div class="text-body-secondary">
+        {{ post.write_at|naturaltime }}
+    </div>
+    
     <hr>
+    
     <div id="comments">
         <h3>نظرات</h3>
+        {% include "components/comments-component.html" %}
     </div>
 
 </section>

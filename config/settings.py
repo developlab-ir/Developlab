@@ -126,3 +126,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 GITEA_URL = os.getenv("GITEA_URL")
 GITEA_ADMIN_TOKEN = os.getenv("GITEA_ADMIN_TOKEN")
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+    ],
+}

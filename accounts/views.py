@@ -43,7 +43,7 @@ class SignUpView(generic.CreateView):
         ):
             return next_url
 
-        return resolve_url("core:home")
+        return resolve_url("accounts:profile-edit")
 
     
 class CustomLoginView(LoginView):
