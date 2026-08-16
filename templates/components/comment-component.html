@@ -18,4 +18,11 @@
             {% endfor %}
         </ul>
     {% endif %}
+    
+    <form action="{% url 'blog:write-comment' post.id %}" method="post" class="mb-2 ps-3">
+        {% csrf_token %}
+        <input type="hidden" name="parent_comment" value="{{ comment.id }}">
+        <textarea class="form-control mb-1" name="description" rows="2" placeholder="پاسخ دهید..." required></textarea>
+        <button type="submit" class="btn btn-secondary btn-sm">ارسال پاسخ</button>
+    </form>
 </div>

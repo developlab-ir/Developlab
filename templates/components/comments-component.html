@@ -1,3 +1,8 @@
+<form action="{% url 'blog:write-comment' post.id %}" method="post" class="mb-2 ps-3">
+        {% csrf_token %}
+        <textarea class="form-control mb-1" name="description" rows="2" placeholder="نظری بنویسید..." required></textarea>
+        <button type="submit" class="btn btn-secondary btn-sm">ارسال نظر</button>
+</form>
 {% for comment in comments %}
 {% include "components/comment-component.html" %}
 {% endfor %}

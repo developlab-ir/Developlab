@@ -2,7 +2,7 @@
 
 <div class="col-md-4">
     <div class="card mb-4 box-shadow">
-        <img src="{{post.thumbnail.url}}" class="card-img-top" style="height: 225px; width: 100%; display: block;">
+        <img src="{{ post.thumbnail.url }}" class="card-img-top" style="height: 225px; width: 100%; display: block;">
         <div class="card-body">
             <span class="card-text">{{ post.title }}</span>
             <p style="color:#fff9;" class="card-text">{{ post.description|truncatewords:23 }}</p>
@@ -13,7 +13,6 @@
                     <a href="{% url 'blog:post-edit' post.id %}" type="button" class="btn btn-sm btn-outline-warning">ویرایش</a>
                     {% endif %}
                 </div>
-                <small class="text-muted">{{ post.write_at|naturaltime }}</small>
             </div>
         </div>
     </div>

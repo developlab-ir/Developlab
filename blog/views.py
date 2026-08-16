@@ -4,7 +4,7 @@ from .forms import PostForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-from django.shortcuts import redirect
+from django.shortcuts import redirect,get_object_or_404
 
 
 class BlogMainPageView(generic.TemplateView):
@@ -93,3 +93,32 @@ class BlogDashboardView(LoginRequiredMixin,generic.TemplateView):
         context["post_verify_cnt"] = len(Post.objects.filter(author=self.request.user,is_active=True)) or 0
 
         return context
+
+class CommentCreateView(LoginRequiredMixin,generic.View):
+    def post(self, request, pk):
+        post = get_object_or_404(Post, pk=pk)
+        description = request.POST.get("description")
+        parent_id = request.POST.get("parent_comment")
+
+        if not description:
+            messages.error(request, "متن نظر نباید خالی باشد.")
+            return redirect(post.get_absolute_url())
+
+        if parent_id:
+            parent = get_object_or_404(Comment,id=parent_id,post=post)
+            Comment.objects.create(
+                post=post,
+                writer=request.user,
+                description=description,
+                reply_to=parent,
+            )
+        else:
+            Comment.objects.create(
+                post=post,
+                writer=request.user,
+                description=description,
+            )
+
+        messages.success(request, "نظر شما ثبت شد و بعد از بررسی نمایش داده می شود.")
+        return redirect(post.get_absolute_url())
+    
