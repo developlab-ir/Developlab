@@ -1,28 +1,74 @@
 {% load humanize %}
-<div class="card {% if comment.is_pin %}pin-comment{% else %}comment{% endif %}">
-    <div class="comment-writer">
-    {% if comment.writer.avatar %}
-        <img src="{{ comment.writer.avatar.url }}" alt="{{ comment.writer }}">    
-    {% endif %}
-        <h5 class="card-header">{{ comment.writer }}</h5>
-    </div>
-    <div class="comment-content" style="padding:10px;">
-        <span class="card-text">{{ comment.description }}</span>
-        <br>
-        <span class="text-body-secondary">{{ comment.write_at|naturaltime }}</span>
-    </div>
-    {% if comment.replies.exists %}
-        <ul class="list-unstyled ps-4 mt-2">
-            {% for child in comment.replies.all %}
-                {% include "components/comment-component.html" with comment=child article=article %}
-            {% endfor %}
-        </ul>
-    {% endif %}
-    
-    <form action="{% url 'blog:write-comment' post.id %}" method="post" class="mb-2 ps-3">
+
+<div class="card mb-3 {% if comment.is_pin %}pin-comment{% else %}comment{% endif %}">
+
+    <div class="card-header d-flex align-items-center gap-2">
+        {% if comment.writer.avatar %}
+        <img src="{{ comment.writer.avatar.url }}" width="50" height="50" class="rounded-circle"
+            alt="{{ comment.writer }}">
+        {% endif %}
+
+        <h5 class="mb-0">{{ comment.writer }}</h5>
+
+    {% if request.user == comment.user or request.user.is_superuser %}
+    <form action="{% url 'blog:delete-comment' post.id comment.id %}" method="post" class="mb-2">
         {% csrf_token %}
-        <input type="hidden" name="parent_comment" value="{{ comment.id }}">
-        <textarea class="form-control mb-1" name="description" rows="2" placeholder="پاسخ دهید..." required></textarea>
-        <button type="submit" class="btn btn-secondary btn-sm">ارسال پاسخ</button>
+        <button type="submit" class="btn btn-danger btn-sm">
+            <svg width="25px" height="25px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 5L19 19M5 19L19 5" stroke="#000000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        </button>
     </form>
+    {% endif %}
+    </div>
+
+    <div class="card-body">
+        <p class="card-text mb-1">
+            {{ comment.description }}
+        </p>
+
+        <small class="text-body-secondary">
+            {{ comment.write_at|naturaltime }}
+        </small>
+    </div>
+
+    <div class="px-3 pb-2">
+        <button class="btn btn-outline-secondary btn-sm" type="button" data-bs-toggle="collapse"
+            data-bs-target="#reply-section-{{ comment.id }}" aria-expanded="false"
+            aria-controls="reply-section-{{ comment.id }}">
+            {% if comment.replies.exists %}
+            مشاهده پاسخ‌ها ({{ comment.replies.count }})
+            {% else %}
+            پاسخ دهید
+            {% endif %}
+        </button>
+    </div>
+
+    <div class="collapse" id="reply-section-{{ comment.id }}">
+        <div class="px-3 pb-3">
+
+            {% if comment.replies.exists %}
+            <div class="border-start ps-3 mt-2">
+                {% for child in comment.replies.all %}
+                {% include "components/comment-component.html" with comment=child post=post %}
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <form action="{% url 'blog:write-comment' post.id %}" method="post" class="mt-3">
+                {% csrf_token %}
+
+                <input type="hidden" name="parent_comment" value="{{ comment.id }}">
+
+                <textarea class="form-control mb-2" name="description" rows="2" placeholder="پاسخ خود را بنویسید..."
+                    required></textarea>
+
+                <button type="submit" class="btn btn-secondary btn-sm">
+                    ارسال پاسخ
+                </button>
+            </form>
+
+        </div>
+    </div>
+
 </div>

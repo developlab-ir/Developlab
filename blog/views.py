@@ -35,7 +35,7 @@ class PostDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["comments"] = Comment.objects.filter(status="okay",reply_to__isnull=True)
+        context["comments"] = Comment.objects.exclude(status="delete").filter(reply_to__isnull=True)
 
         return context
 
@@ -119,6 +119,17 @@ class CommentCreateView(LoginRequiredMixin,generic.View):
                 description=description,
             )
 
-        messages.success(request, "نظر شما ثبت شد و بعد از بررسی نمایش داده می شود.")
+        messages.success(request, "نظر شما ثبت شد.")
         return redirect(post.get_absolute_url())
-    
+
+class CommentDeleteView(LoginRequiredMixin, generic.View):
+    def post(self, request, pk, comment_id):
+        comment = get_object_or_404(Comment, id=comment_id)
+
+        if request.user == comment.writer or request.user.is_superuser:
+            comment.delete()
+            messages.success(request, "نظر حذف شد.")
+        else:
+            messages.error(request, "شما اجازه حذف این نظر را ندارید.")
+
+        return redirect("blog:post-detail", pk=pk)
