@@ -9,6 +9,7 @@ urlpatterns = [
     path('dashboard/', admin.site.urls),
     path('accounts/',include("accounts.urls")),
     path('blog/',include("blog.urls")),
+    path('question&answer/',include("qa.urls")),
     path('',include("core.urls")),
 ]
 
