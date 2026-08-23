@@ -35,7 +35,8 @@ class PostDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["comments"] = Comment.objects.exclude(status="delete").filter(reply_to__isnull=True)
+        context["comments"] = Comment.objects.exclude(status="delete").filter(reply_to__isnull=True,post=self.object)
+        context["categories"] = self.object.categories.all()
 
         return context
 

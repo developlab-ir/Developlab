@@ -22,7 +22,7 @@ class Post(models.Model):
     update_at = models.DateTimeField(auto_now=True,verbose_name="ویرایش شده در")
 
     author = models.ForeignKey("accounts.CustomUser",on_delete=models.CASCADE,verbose_name="نویسنده")
-    categories = models.ManyToManyField("core.Category",verbose_name="برچسب ها")
+    categories = models.ManyToManyField("core.Category",verbose_name="برچسب ها",related_name="posts")
 
     class Meta:
         db_table = "post"

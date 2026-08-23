@@ -12,7 +12,7 @@
         background-image: url("{{ post.thumbnail.url }}");
         background-size: cover;
         background-position: center;
-        height: 300px;
+        height:100vh;
         border-radius: 10px;
     }
 
@@ -56,11 +56,20 @@
         {{ post.write_at|naturaltime }}
     </div>
     
+    <br>
+
+    <div class="">
+        <span class="text-body-secondary">برچسب ها</span>
+        {% for category in categories %}
+        <span class="badge-primary">{{ category }}</span>
+        {% endfor %}
+    </div>
+
     <hr>
     
     <div id="comments">
         <h3>نظرات</h3>
         {% include "components/comments-component.html" %}
-    </div>
+      </div>
 
 </section>

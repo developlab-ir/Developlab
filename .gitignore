@@ -16,8 +16,6 @@ db.sqlite3
 media/
 staticfiles/
 
-# Collected static files
-static/
 
 # Logs
 *.log

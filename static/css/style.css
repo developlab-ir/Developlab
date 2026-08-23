@@ -1,0 +1,18 @@
+* { 
+    margin: 0;
+    padding: 0;
+}
+.sidebar {
+    min-height: 100vh;
+    position: sticky;
+    top: 0;
+    overflow-y: auto;
+    background-color: #111;
+    border-right: 1px solid #2a2a2a;
+}
+
+.main-content {
+    min-height: 100vh;
+    padding: 20px;
+    overflow-x: hidden;
+}
