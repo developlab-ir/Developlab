@@ -9,6 +9,7 @@ class PostAdmin(admin.ModelAdmin):
     list_editable = ("author","is_active")
 
     readonly_fields = ("write_at","update_at")
+    autocomplete_fields = ("author","categories")
 
     date_hierarchy = "write_at"
 
