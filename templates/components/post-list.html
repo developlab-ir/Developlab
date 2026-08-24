@@ -4,4 +4,8 @@
 {% empty %}
 <h4 style="color:red;">هیچ پستی یافت نشد</h4>
 {% endfor %}
+<section id="actions">
+    <a href="{% url 'blog:post-create' %}" type="button" class="btn btn-sm btn-success">نوشتن پست جدید</a>
+    <a href="{% url 'blog:dashboard' %}" type="button" class="btn btn-sm btn-secondary">مشاهده داشبورد</a>
+</section>
 </div>

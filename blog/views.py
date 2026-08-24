@@ -108,6 +108,8 @@ class BlogDashboardView(LoginRequiredMixin,generic.TemplateView):
         context = super().get_context_data(**kwargs)
         context["post_cnt"] = len(Post.objects.filter(author=self.request.user)) or 0
         context["post_verify_cnt"] = len(Post.objects.filter(author=self.request.user,is_active=True)) or 0
+        context["comment_cnt"] = len(Comment.objects.filter(writer=self.request.user)) or 0
+        context["comment_verify_cnt"] = len(Comment.objects.filter(writer=self.request.user).exclude(status="delete")) or 0
 
         return context
 
