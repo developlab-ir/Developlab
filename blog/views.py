@@ -12,7 +12,16 @@ class BlogMainPageView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["posts"] = Post.objects.filter(is_active=True)[:10]
+
+        posts = Post.objects.filter(is_active=True)
+
+        slug = self.request.GET.get("category")
+
+        if slug:
+            posts = posts.filter(categories__slug=slug)
+
+        context["posts"] = posts[:10]
+
         return context
 
 class BlogListView(generic.ListView):
@@ -21,7 +30,14 @@ class BlogListView(generic.ListView):
     context_object_name = "posts"
 
     def get_queryset(self):
-        return Post.objects.filter(is_active=True)
+        query = Post.objects.filter(is_active=True)
+
+        slug = self.request.GET.get("category")
+
+        if slug:
+            query = query.filter(categories__slug=slug)
+
+        return query
     
 class PostDetailView(generic.DetailView):
     template_name = "blog/post-detail.html"
