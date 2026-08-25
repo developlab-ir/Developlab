@@ -24,7 +24,10 @@ DJANGO_APPS = [
     'django.contrib.humanize',
 ]
 
-THIRD_PARTY_APPS = []
+THIRD_PARTY_APPS = [
+    "dal",
+    "dal_select2",
+]
 
 LOCAL_APPS = [
     "accounts",

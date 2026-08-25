@@ -14,6 +14,7 @@
 
 {% block styles %}
 <link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{{ form.media.css }}
 {% endblock styles %}
 
 {% block content %}
@@ -24,13 +25,43 @@
 نوشتن پست جدید
 {% endif %}
 </h1>
-<form class='form-control' action='' method='post' enctype='multipart/form-data'>
-{% csrf_token %}
-{{ form.as_p }}
-<button class='btn btn-warning' type='submit'>ثبت پست</button>
-</form>
 
+<form method="post" enctype="multipart/form-data">
+
+    {% csrf_token %}
+
+    {% for field in form %}
+        <div class="mb-3">
+
+            <label for="{{ field.id_for_label }}"
+                   class="form-label">
+                {{ field.label }}
+            </label>
+
+            {{ field }}
+
+            {% if field.help_text %}
+                <div class="form-text">
+                    {{ field.help_text }}
+                </div>
+            {% endif %}
+
+            {% for error in field.errors %}
+                <div class="text-danger small">
+                    {{ error }}
+                </div>
+            {% endfor %}
+
+        </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-warning">
+        ثبت پست
+    </button>
+
+</form>
 {% endblock content %}
 
 {% block scripts %}
+{{ form.media.js }}
 {% endblock scripts %}

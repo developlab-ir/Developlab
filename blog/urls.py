@@ -1,4 +1,5 @@
 from django.urls import path
+from .autocomplete import CategoryAutocomplete
 from . import views
 
 
@@ -14,4 +15,5 @@ urlpatterns = [
     path("post/<int:pk>/edit/",views.PostUpdateView.as_view(),name='post-edit'),
     path("post/<int:pk>/delete/",views.PostDeleteView.as_view(),name='post-delete'),
     path("post/write/",views.PostCreateView.as_view(),name='post-create'),
+    path("category-autocomplete/",CategoryAutocomplete.as_view(),name="category-autocomplete"),
 ]

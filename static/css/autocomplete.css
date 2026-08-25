@@ -1,0 +1,43 @@
+.select2-container--default .select2-selection--multiple {
+    background-color: #212529;
+    border: 1px solid #495057;
+    color: #fff;
+    min-height: 38px;
+}
+
+.select2-container--default .select2-selection--multiple
+.select2-selection__choice {
+    background-color: #495057;
+    border: 1px solid #6c757d;
+    color: #fff;
+}
+
+.select2-container--default .select2-selection--multiple
+.select2-selection__choice__remove {
+    color: #fff;
+}
+
+.select2-container--default .select2-search--inline
+.select2-search__field {
+    color: #fff;
+}
+
+.select2-container--default .select2-results__option {
+    background-color: #212529;
+    color: #fff;
+}
+
+.select2-container--default .select2-results__option--highlighted {
+    background-color: #495057;
+    color: #fff;
+}
+
+.select2-container--default .select2-dropdown {
+    background-color: #212529;
+    border-color: #495057;
+}
+
+.select2-container--default .select2-selection--multiple
+.select2-selection__placeholder {
+    color: #adb5bd;
+}

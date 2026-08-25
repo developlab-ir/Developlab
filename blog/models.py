@@ -23,7 +23,7 @@ class Post(models.Model):
     update_at = models.DateTimeField(auto_now=True,verbose_name="ویرایش شده در")
 
     author = models.ForeignKey("accounts.CustomUser",on_delete=models.CASCADE,verbose_name="نویسنده",related_name="posts")
-    categories = models.ManyToManyField("core.Category",verbose_name="برچسب ها",related_name="posts")
+    categories = models.ManyToManyField("core.Category",verbose_name="دسته بندی ها",related_name="posts")
 
     word_count = models.PositiveIntegerField(verbose_name="تعداد کلمات نوشته شده",default=0)
 
