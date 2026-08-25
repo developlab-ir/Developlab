@@ -55,7 +55,7 @@
             </div>
             {% endif %}
 
-            <form action="{% url 'blog:write-comment' post.id %}" method="post" class="mt-3">
+            <form action="{% url 'blog:write-comment' post.id %}" method="post" class="mt-3 form-control">
                 {% csrf_token %}
 
                 <input type="hidden" name="parent_comment" value="{{ comment.id }}">

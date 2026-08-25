@@ -2,18 +2,24 @@
 {% load static %}
 
 {% block title %}
+وبلاگ
 {% endblock title %}
 
 {% block meta %}
 {% endblock meta %}
 
 {% block styles %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
 {% endblock styles %}
 
 {% block content %}
-<h1>وبلاگ</h1>
-<h2>پست های اخیر</h2>
-<a href="{% url 'blog:list' %}">مشاهده ی همه></a>
+    <h1>وبلاگ</h1>
+    <hr>
+    <div>
+        <h2 class="recent-posts">پست های اخیر</h2>
+        <a class="btn btn-warning see-all" href="{% url 'blog:list' %}">مشاهده ی همه</a>
+    </div>
+    <br>
 {% include "components/post-list.html" %}
 {% endblock content %}
 

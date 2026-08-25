@@ -1,6 +1,6 @@
-<form action="{% url 'blog:write-comment' post.id %}" method="post" class="mb-2 ps-3">
+<form action="{% url 'blog:write-comment' post.id %}" method="post" class="mb-2 ps-3 form-control">
         {% csrf_token %}
-        <textarea class="form-control mb-1" name="description" rows="2" placeholder="نظری بنویسید..." required></textarea>
+        <textarea class="mb-1 form-control" name="description" rows="2" placeholder="نظری بنویسید..." required></textarea>
         <button type="submit" class="btn btn-secondary btn-sm">ارسال نظر</button>
 </form>
 {% for comment in comments %}

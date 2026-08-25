@@ -2,10 +2,15 @@
 {% load static %}
 
 {% block title %}
+پست {{ post.title }}
 {% endblock title %}
 
 {% block meta %}
 {% endblock meta %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock styles %}
 
 
 {% block content %}
