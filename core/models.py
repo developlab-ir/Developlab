@@ -14,8 +14,8 @@ class Category(models.Model):
 
     slug = models.SlugField(
         verbose_name="شناسه",
-        blank=True,
-        null=True
+        unique=True,
+        blank=True
     )
 
     seo_description = models.TextField(verbose_name="توضیحات(مربوط به سئو)",help_text="این توضیحات برای سئو و جستجوی بهتر در خود سایت است",blank=True,null=True)
@@ -23,8 +23,13 @@ class Category(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.name)
-
-        return super().save(*args, **kwargs)
+        if self.pk is None and self.slug:
+            original_slug = self.slug
+            counter = 1
+            while Category.objects.filter(slug=self.slug).exists():
+                self.slug = f"{original_slug}-{counter}"
+                counter += 1
+        super().save(*args, **kwargs)
 
     class Meta:
         db_table = "categories"

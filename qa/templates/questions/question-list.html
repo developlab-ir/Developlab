@@ -1,3 +1,28 @@
+{% extends 'base/base.html' %}
+{% load static %}
+
+{% block title %}
+{% endblock title %}
+
+{% block meta %}
+{% endblock meta %}
+
+{% block styles %}
+{% endblock styles %}
+
+{% block content %}
+
 {% for question in questions %}
-<p>{{ question.title }}</p>
+    <div class="card w-75 mb-3">
+        <div class="card-body">
+                <h5 class="card-title">{{ question.title }}</h5>
+                <p class="card-text"> {{ question.description|truncatewords:48 }}</p>
+                <a href="#" class="btn btn-primary">Button</a>
+        </div>
+    </div>
 {% endfor %}
+
+{% endblock content %}
+
+{% block scripts %}
+{% endblock scripts %}

@@ -100,3 +100,7 @@ class CustomUser(AbstractUser):
             raise ValidationError(
                 "حداقل یکی از ایمیل یا شماره تلفن باید وارد شود."
             )
+
+    @property
+    def write_words_count(self):
+        return self.posts.aggregate(total=models.Sum('word_count'))['total'] or 0

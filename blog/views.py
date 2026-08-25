@@ -113,11 +113,21 @@ class BlogDashboardView(LoginRequiredMixin,generic.TemplateView):
     template_name = "blog/dashboard.html"
 
     def get_context_data(self, **kwargs):
+        post_queryset = Post.objects.filter(author=self.request.user)
         context = super().get_context_data(**kwargs)
-        context["posts"] = Post.objects.filter(author=self.request.user)
-        context["verify_posts"] = Post.objects.filter(author=self.request.user,is_active=True)
+        context["posts"] = post_queryset
+        context["verify_posts"] = post_queryset.filter(is_active=True)
         context["comments"] = Comment.objects.filter(writer=self.request.user)
         context["verify_comments"] = Comment.objects.filter(writer=self.request.user).exclude(status="delete")
+
+        comments_under_posts_count = 0
+        for post in post_queryset:
+            comments = post.comments.exclude(status="delete")
+            comments_under_posts_count += len(comments)
+
+        context["post_comments_count"]=comments_under_posts_count
+
+        context["write_words_count"]=self.request.user.write_words_count
 
         return context
 
