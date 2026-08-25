@@ -1,11 +1,51 @@
-<div class="row" style="padding:1%;">
-{% for post in posts %}
-{% include "components/post-list-item.html" %}
-{% empty %}
-<h4 style="color:red;">هیچ پستی یافت نشد</h4>
-{% endfor %}
-<section id="actions">
-    <a href="{% url 'blog:post-create' %}" type="button" class="btn btn-sm btn-success">نوشتن پست جدید</a>
-    <a href="{% url 'blog:dashboard' %}" type="button" class="btn btn-sm btn-secondary">مشاهده داشبورد</a>
-</section>
+<div class="row g-3" style="padding: 1%;">
+
+    <main class="col-12 col-md-8 col-lg-9">
+
+        <div class="row g-3">
+            {% for post in posts %}
+                {% include "components/post-list-item.html" %}
+            {% empty %}
+                <h4 style="color:red;">هیچ پستی یافت نشد</h4>
+            {% endfor %}
+        </div>
+
+        <section id="actions" class="mt-3">
+            <a href="{% url 'blog:post-create' %}"
+               class="btn btn-sm btn-success">
+                نوشتن پست جدید
+            </a>
+
+            <a href="{% url 'blog:dashboard' %}"
+               class="btn btn-sm btn-secondary">
+                مشاهده داشبورد
+            </a>
+        </section>
+
+    </main>
+
+
+    <aside class="col-12 col-md-4 col-lg-3">
+
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">برچسب‌ها({{ categories|length }})</h5>
+            </div>
+
+            <div class="card-body">
+                {% for category in categories %}
+                    <a href="{% url 'blog:list' %}?category={{ category.slug }}"
+                       class="btn btn-sm btn-outline-primary mb-2">
+                        {{ category }}
+                    </a>
+                {% empty %}
+                    <span class="text-muted">
+                        برچسبی وجود ندارد
+                    </span>
+                {% endfor %}
+            </div>
+        </div>
+
+    </aside>
+
 </div>

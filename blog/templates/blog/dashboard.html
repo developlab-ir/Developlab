@@ -16,8 +16,8 @@
     <a href="#">مشاهده ی همه> </a>
     <h3>آمار کلی</h3>
     <ul>
-        <li>تعداد پست ها:{{ post_cnt }}</li>
-        <li>تعداد پست های منتشر شده:{{ post_verify_cnt }}</li>
+        <li>تعداد پست ها:{{ posts|length }}</li>
+        <li>تعداد پست های منتشر شده:{{ verify_posts|length }}</li>
         <li>تعداد نظرات زیر پست ها:</li>
         <li>تعداد کلمات تایپ شده تا الان:</li>
         <li>تعداد بازدید پست ها :</li>
@@ -29,8 +29,8 @@
 
     <h3>اطلاعات کلی</h3>
     <ul>
-        <li>تعداد نظرات نوشته شده:{{ comment_cnt }}</li>
-        <li>تعداد نظرات منتشر شده:{{ comment_verify_cnt }}</li>
+        <li>تعداد نظرات نوشته شده:{{ comments|length }}</li>
+        <li>تعداد نظرات منتشر شده:{{ verify_comments|length }}</li>
     </ul>
 </div>
 {% endblock content %}

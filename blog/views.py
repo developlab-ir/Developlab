@@ -1,5 +1,6 @@
 from django.views import generic
 from .models import Post,Comment
+from core.models import Category
 from .forms import PostForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -21,6 +22,7 @@ class BlogMainPageView(generic.TemplateView):
             posts = posts.filter(categories__slug=slug)
 
         context["posts"] = posts[:10]
+        context["categories"] = Category.objects.all()
 
         return context
 
@@ -38,7 +40,13 @@ class BlogListView(generic.ListView):
             query = query.filter(categories__slug=slug)
 
         return query
-    
+
+    def get_context_data(self, **kwargs):
+        context =super().get_context_data(**kwargs)
+        context["categories"] = Category.objects.all()
+
+        return context
+
 class PostDetailView(generic.DetailView):
     template_name = "blog/post-detail.html"
     context_object_name = "post"
@@ -106,10 +114,10 @@ class BlogDashboardView(LoginRequiredMixin,generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["post_cnt"] = len(Post.objects.filter(author=self.request.user)) or 0
-        context["post_verify_cnt"] = len(Post.objects.filter(author=self.request.user,is_active=True)) or 0
-        context["comment_cnt"] = len(Comment.objects.filter(writer=self.request.user)) or 0
-        context["comment_verify_cnt"] = len(Comment.objects.filter(writer=self.request.user).exclude(status="delete")) or 0
+        context["posts"] = Post.objects.filter(author=self.request.user)
+        context["verify_posts"] = Post.objects.filter(author=self.request.user,is_active=True)
+        context["comments"] = Comment.objects.filter(writer=self.request.user)
+        context["verify_comments"] = Comment.objects.filter(writer=self.request.user).exclude(status="delete")
 
         return context
 

@@ -1,20 +1,40 @@
 {% load humanize %}
 
-<div class="col-md-4">
+<div class="col-12 col-sm-6 col-lg-4">
     <div class="card mb-4 box-shadow">
-        <img src="{{ post.thumbnail.url }}" class="card-img-top" style="height: 225px; width: 100%; display: block;">
+
+        <img src="{{ post.thumbnail.url }}"
+             class="card-img-top"
+             style="height: 225px; width: 100%; display: block;">
+
         <div class="card-body">
             <span class="card-text">{{ post.title }}</span>
-            <p style="color:#fff9;" class="card-text">{{ post.description|truncatewords:23 }}</p>
+
+            <p style="color:#fff9;" class="card-text">
+                {{ post.description|truncatewords:23 }}
+            </p>
+
             <div class="d-flex justify-content-between align-items-center">
                 <div>
-                    <a href="{% url 'blog:post-detail' post.id %}" type="button" class="btn btn-sm btn-primary">مشاهده</a>
+                    <a href="{% url 'blog:post-detail' post.id %}"
+                       class="btn btn-sm btn-primary">
+                        مشاهده
+                    </a>
+
                     {% if post.author == user %}
-                    <a href="{% url 'blog:post-edit' post.id %}" type="button" class="btn btn-sm btn-warning">ویرایش</a>
-                    <a href="{% url 'blog:post-delete' post.id %}" type="button" class="btn btn-sm btn-danger">حذف</a>
+                        <a href="{% url 'blog:post-edit' post.id %}"
+                           class="btn btn-sm btn-warning">
+                            ویرایش
+                        </a>
+
+                        <a href="{% url 'blog:post-delete' post.id %}"
+                           class="btn btn-sm btn-danger">
+                            حذف
+                        </a>
                     {% endif %}
                 </div>
             </div>
         </div>
+
     </div>
 </div>
