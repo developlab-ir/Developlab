@@ -64,6 +64,15 @@ class PostDetailView(generic.DetailView):
 
         return context
 
+    def get_object(self, queryset = None):
+        obj = super().get_object(queryset)
+        session_key = f"viewed_article_{obj.id}"
+        if not self.request.session.get(session_key, False):
+            obj.post_views += 1
+            obj.save(update_fields=["post_views"])
+            self.request.session[session_key] = True
+        return obj
+
 class PostCreateView(LoginRequiredMixin,generic.CreateView):
     template_name = "blog/post-create-or-edit.html"
     model = Post
@@ -128,6 +137,7 @@ class BlogDashboardView(LoginRequiredMixin,generic.TemplateView):
         context["post_comments_count"]=comments_under_posts_count
 
         context["write_words_count"]=self.request.user.write_words_count
+        context["total_post_views"]=self.request.user.total_post_views
 
         return context
 

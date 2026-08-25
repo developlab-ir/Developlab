@@ -27,6 +27,8 @@ class Post(models.Model):
 
     word_count = models.PositiveIntegerField(verbose_name="تعداد کلمات نوشته شده",default=0)
 
+    post_views = models.PositiveIntegerField(verbose_name="بازدید ها",default=0)
+
     def update_word_count(self):
         words = re.findall(r'[\w\u0600-\u06FF]+', self.description)
         return len(words)

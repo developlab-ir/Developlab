@@ -39,6 +39,11 @@
 
     <br>
 
+    <div class="views">
+    {{ post.post_views }} بازدید
+    </div>
+
+    <hr>
     {% if post.summary %}
     <div class="post-summary">
         <h2>خلاصه پست</h2>
@@ -70,6 +75,6 @@
     <div id="comments">
         <h3>نظرات</h3>
         {% include "components/comments-component.html" %}
-      </div>
+    </div>
 
 </section>

@@ -104,3 +104,7 @@ class CustomUser(AbstractUser):
     @property
     def write_words_count(self):
         return self.posts.aggregate(total=models.Sum('word_count'))['total'] or 0
+
+    @property
+    def total_post_views(self):
+        return self.posts.aggregate(total=models.Sum('post_views'))['total'] or 0
