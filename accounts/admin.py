@@ -62,7 +62,7 @@ class CustomUserAdmin(UserAdmin):
             "گزینه های پیشرفته",
             {
                 "classes": ("collapse",),
-                "fields": ("avatar","location","website","groups","user_permissions","gitea_user_id")
+                "fields": ("avatar","location","website","groups","user_permissions","gitea_user_id","bio",)
             },
         ),
         (

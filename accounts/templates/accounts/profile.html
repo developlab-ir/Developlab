@@ -1,5 +1,6 @@
 {% extends 'base/base.html' %}
 {% load static %}
+{% load humanize %}
 
 {% block title %}
 پروفایل {{ profile }}
@@ -9,10 +10,38 @@
 {% endblock meta %}
 
 {% block styles %}
+<style>
+    .card {
+        margin:1ch;
+    }
+    .user-avatar {
+        height: 15ch;
+        width: 15ch;
+        border-radius: 50%;
+    }
+</style>
 {% endblock styles %}
 
 {% block content %}
-<h1>پروفایل {{ profile }}</h1>
+<div class="card">
+    <div class="card-header">
+        <img class="user-avatar" src="{{ profile.avatar.url }}" alt="">
+        <span class="h2">{{ profile }}</span>
+    </div>
+    <div class="card-body">
+        <div>
+            {% if profile.bio %}
+            <h3>بیوگرافی</h3>
+            <strong>
+            {{ profile.bio }}
+            </strong>
+            {% endif %}
+        </div>
+    </div>
+    <div class="details card-footer">
+        <span class="date-joined">از {{ profile.date_joined|naturaltime }} عضو سایت بوده</span>
+    </div>
+</div>
 {% endblock content %}
 
 {% block scripts %}
