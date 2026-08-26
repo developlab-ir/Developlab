@@ -12,10 +12,23 @@
 {% endblock styles %}
 
 {% block content %}
-<form id="form" class="form-control" action='' method='post' enctype='multipart/form-data'>
-{% csrf_token %}
-{{ form.as_p }}
-<button class="btn btn-success" type='submit'>تایید</button>
+<form method="post" class="form-control">
+    {% csrf_token %}
+    
+    {% for field in form %}
+        <p class="form-group">
+            {{ field }} 
+            {% if field.errors %}
+                <div class="errors">
+                    {% for error in field.errors %}
+                        <span class="error-message">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </p>
+    {% endfor %}
+    
+    <button type="submit" class="btn btn-primary">ثبت نام</button>
 </form>
 {% endblock content %}
 

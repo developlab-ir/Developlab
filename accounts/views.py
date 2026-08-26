@@ -1,6 +1,6 @@
 from django.utils.http import url_has_allowed_host_and_scheme
 from django.shortcuts import render,redirect,resolve_url
-from .forms import CustomUserCreationForm,UserForm
+from .forms import CustomUserCreationForm,UserForm,LoginForm
 from django.contrib.auth import login,logout
 from django.urls import reverse_lazy
 from django.views import generic
@@ -47,6 +47,7 @@ class SignUpView(generic.CreateView):
 
     
 class CustomLoginView(LoginView):
+    form_class = LoginForm
     def form_valid(self, form):
         super().form_valid(form)
         
