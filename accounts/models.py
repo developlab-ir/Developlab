@@ -57,13 +57,6 @@ class CustomUser(AbstractUser):
         null=True,
     )
 
-    location = models.CharField(
-        verbose_name="مکان",
-        max_length=100,
-        blank=True,
-        null=True,
-    )
-
     website = models.URLField(
         verbose_name="وب‌سایت",
         null=True,

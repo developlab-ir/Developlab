@@ -15,7 +15,6 @@ class CustomUserAdmin(UserAdmin):
         "date_joined",
         "last_login",
         "website",
-        "location",
         )
     list_editable = ("display_name","is_active","is_staff",)
     
@@ -62,7 +61,7 @@ class CustomUserAdmin(UserAdmin):
             "گزینه های پیشرفته",
             {
                 "classes": ("collapse",),
-                "fields": ("avatar","location","website","groups","user_permissions","gitea_user_id","bio",)
+                "fields": ("avatar","website","groups","user_permissions","gitea_user_id","bio",)
             },
         ),
         (
