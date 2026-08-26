@@ -45,7 +45,7 @@ from .models import CustomUser
 class UserForm(forms.ModelForm):
     class Meta:
         model = CustomUser
-        fields = ("first_name", "last_name", "bio", "avatar", "display_name", "website")
+        fields = ("first_name", "last_name", "bio", "avatar", "display_name",)
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -54,7 +54,7 @@ class UserForm(forms.ModelForm):
             'first_name': 'نام',
             'last_name': 'نام خانوادگی',
             'bio': 'بیوگرافی',
-            'avatar': 'انتخاب تصویر پروفایل',
+            'avatar': 'آواتار',
             'display_name': 'نام نمایشی',
             'website': 'وبسایت شخصی',
         }

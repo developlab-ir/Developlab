@@ -57,12 +57,6 @@ class CustomUser(AbstractUser):
         null=True,
     )
 
-    website = models.URLField(
-        verbose_name="وب‌سایت",
-        null=True,
-        blank=True,
-    )
-
     gitea_user_id = models.PositiveIntegerField(
         verbose_name="شناسه کاربر در Gitea",
         unique=True,
