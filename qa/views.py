@@ -38,7 +38,7 @@ class QuestionCreateView(generic.CreateView):
               return super().form_valid(form)
 
 class QuestionUpdateView(LoginRequiredMixin,generic.UpdateView):
-    template_name = "blog/post-create-or-edit.html"
+    template_name = "questions/question-edit.html"
     model = Question
     form_class = QuestionForm
 
@@ -48,7 +48,23 @@ class QuestionUpdateView(LoginRequiredMixin,generic.UpdateView):
             messages.error(request,"شما نویسنده ی این سوال نیستید")
             return redirect(self.success_url)
         if query.filter(is_active=False):
-            messages.error(request,"این پست در دسترس نیست")
+            messages.error(request,"این سوال در دسترس نیست")
+            return redirect(self.success_url)
+
+        return super().dispatch(request, *args, **kwargs)
+
+class QuestionDeleteView(LoginRequiredMixin,generic.DeleteView):
+    template_name = "questions/question-delete.html"
+    model = Question
+    success_url = reverse_lazy("qa:question-list")
+
+    def dispatch(self, request, *args, **kwargs):
+        query = Question.objects.filter(id=self.kwargs.get(self.pk_url_kwarg),user=request.user)
+        if not query.exists():
+            messages.error(request,"شما نویسنده ی این سوال نیستید")
+            return redirect(self.success_url)
+        if query.filter(is_active=False):
+            messages.error(request,"این سوال در دسترس نیست")
             return redirect(self.success_url)
 
         return super().dispatch(request, *args, **kwargs)
