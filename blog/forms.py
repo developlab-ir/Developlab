@@ -46,7 +46,7 @@ class PostForm(forms.ModelForm):
             ),
 
             "categories": autocomplete.ModelSelect2Multiple(
-                url="blog:category-autocomplete",
+                url="core:category-autocomplete",
                 attrs={
                     "class": "form-select",
                     "data-placeholder": "دسته‌بندی را انتخاب کنید...",

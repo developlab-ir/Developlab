@@ -1,5 +1,5 @@
 from dal import autocomplete
-from core.models import Category
+from .models import Category
 
 
 class CategoryAutocomplete(autocomplete.Select2QuerySetView):

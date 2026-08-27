@@ -19,6 +19,7 @@ class Question(models.Model):
     write_date = models.DateTimeField("تاریخ مطرح شدن", auto_now_add=True)
 
     solve_date = models.DateTimeField("تاریخ حل شدن", blank=True, null=True)
+    categories = models.ManyToManyField("core.Category",verbose_name="برچسب ها")
 
     class Meta:
         db_table = "questions"

@@ -1,11 +1,12 @@
 from django import forms
 from .models import Question,Answer
+from dal import autocomplete
 
 
 class QuestionForm(forms.ModelForm):
     class Meta:
         model = Question
-        fields = ("title","type","description")
+        fields = ("title","type","description","categories")
 
         widgets = {
                     "title": forms.TextInput(
@@ -29,4 +30,11 @@ class QuestionForm(forms.ModelForm):
                             "placeholder": "توضیحات در مورد پرسش",
                         }
                     ),
+                    "categories": autocomplete.ModelSelect2Multiple(
+                        url="core:category-autocomplete",
+                                        attrs={
+                                            "class": "form-select",
+                                            "data-placeholder": "دسته‌بندی را انتخاب کنید...",
+                                        },
+                    )
         }
