@@ -4,7 +4,7 @@
 
         <div class="row g-3">
             {% for post in posts %}
-                {% include "components/post-list-item.html" %}
+                {% include "blog/components/post-list-item.html" %}
             {% empty %}
                 <h4 style="color:red;">هیچ پستی یافت نشد</h4>
             {% endfor %}
@@ -36,8 +36,8 @@
             <div class="card-body">
                 {% for category in categories %}
                     <a href="{% url 'blog:list' %}?category={{ category.slug }}"
-                       class="btn btn-sm btn-outline-primary mb-2">
-                        {{ category }}
+                       class="btn btn-outline-warning mb-2">
+                        {{ category }}({{ category.posts.all|length }})
                     </a>
                 {% empty %}
                     <span class="text-muted">

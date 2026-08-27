@@ -50,7 +50,7 @@
             {% if comment.replies.exists %}
             <div class="border-start ps-3 mt-2">
                 {% for child in comment.replies.all %}
-                {% include "components/comment-component.html" with comment=child post=post %}
+                {% include "blog/components/comment-component.html" with comment=child post=post %}
                 {% endfor %}
             </div>
             {% endif %}
