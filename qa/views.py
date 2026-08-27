@@ -1,5 +1,6 @@
 from django.views import generic
 from .models import Question,Answer
+from .forms import QuestionForm
 
 
 class QuestionListView(generic.ListView):
@@ -19,3 +20,15 @@ class QuestionDetailView(generic.DetailView):
     def get_queryset(self):
             query = Question.objects.filter(id=self.kwargs.get(self.pk_url_kwarg),is_active=True)
             return query
+
+class QuestionCreateView(generic.CreateView):
+      template_name = "questions/question-write.html"
+      model = Question
+      form_class = QuestionForm
+
+      def get_success_url(self):
+            return super().get_success_url()
+
+      def form_valid(self, form):
+              form.instance.user = self.request.user
+              return super().form_valid(form)

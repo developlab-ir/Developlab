@@ -14,12 +14,15 @@
 
 {% block content %}
 
+<h2 class="text-danger">مطمعنی که میخوای پستو حذف کنی؟این عمل بازگشت پذیر نیست</h2>
+<hr>
 <form action='' method='post' enctype='multipart/form-data'>
 {% csrf_token %}
 {{ form.as_p }}
-<button type='submit'>تایید</button>
+<button class="btn btn-danger" type='submit'>بله،پست را حذف کن</button>
 </form>
-
+<br>
+<a href="{% url 'blog:list' %}" class="btn btn-warning">نه،من رو به لیست پست ها برگردون</a>
 {% endblock content %}
 
 {% block scripts %}

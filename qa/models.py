@@ -1,8 +1,15 @@
 from django.db import models
+from django.urls import reverse
 
 
 class Question(models.Model):
+    Types = (
+        ("programing","برنامه نویسی"),
+        ("technical","فنی"),
+        ("general","عمومی"),
+    )
     title = models.CharField(verbose_name="موضوع",max_length=110)
+    type = models.CharField(verbose_name="مدل سوال",max_length=110,choices=Types)
     description = models.TextField(verbose_name="توضیحات")
 
     user = models.ForeignKey("accounts.CustomUser",on_delete=models.CASCADE)
@@ -20,6 +27,9 @@ class Question(models.Model):
 
     def __str__(self):
         return self.title
+
+    def get_absolute_url(self):
+            return reverse("qa:question-detail", kwargs={"pk": self.id})
 
 class Answer(models.Model):
     description = models.TextField(verbose_name="توضیحات")
