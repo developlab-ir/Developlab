@@ -13,6 +13,24 @@
 
 {% block content %}
 <h1>داشبورد</h1>
+<div class="card">
+    <h3 class="card-header">لینک های کاربردی</h3>
+    <ul class="card-body">
+        <ul>
+            <h4>ویژگی های کاربری</h4>
+            <li><a href="{% url 'accounts:password_change' %}">مشاهده ی پروفایل</a></li>
+            <li><a href="{% url 'accounts:profile-edit' %}">ویرایش پروفایل</a></li>
+            <li><a href="{% url 'accounts:password_change' %}">تغییر رمز عبور</a></li>
+            <li><a href="{% url 'accounts:logout' %}">خروج</a></li>
+        </ul>
+        <ul>
+            <h4>وبلاگ</h4>
+            <li><a href="{% url 'blog:index' %}">صفحه ی اصلی</a></li>
+            <li><a href="{% url 'blog:list' %}">لیست پست ها</a></li>
+            <li><a href="{% url 'accounts:password_change' %}">داشبورد وبلاگ</a></li>
+        </ul>
+    </ul>
+</div>
 {% endblock content %}
 
 {% block scripts %}
