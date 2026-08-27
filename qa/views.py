@@ -1,6 +1,10 @@
 from django.views import generic
 from .models import Question,Answer
 from .forms import QuestionForm
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
+from django.shortcuts import render,redirect
+from django.urls import reverse_lazy
 
 
 class QuestionListView(generic.ListView):
@@ -32,3 +36,19 @@ class QuestionCreateView(generic.CreateView):
       def form_valid(self, form):
               form.instance.user = self.request.user
               return super().form_valid(form)
+
+class QuestionUpdateView(LoginRequiredMixin,generic.UpdateView):
+    template_name = "blog/post-create-or-edit.html"
+    model = Question
+    form_class = QuestionForm
+
+    def dispatch(self, request, *args, **kwargs):
+        query = Question.objects.filter(id=self.kwargs.get(self.pk_url_kwarg),user=request.user)
+        if not query.exists():
+            messages.error(request,"شما نویسنده ی این سوال نیستید")
+            return redirect(self.success_url)
+        if query.filter(is_active=False):
+            messages.error(request,"این پست در دسترس نیست")
+            return redirect(self.success_url)
+
+        return super().dispatch(request, *args, **kwargs)
