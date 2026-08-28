@@ -3,7 +3,7 @@ from .models import Question,Answer
 from .forms import QuestionForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect,get_object_or_404
 from django.urls import reverse_lazy
 
 
@@ -25,7 +25,12 @@ class QuestionDetailView(generic.DetailView):
             query = Question.objects.filter(id=self.kwargs.get(self.pk_url_kwarg),is_active=True)
             return query
 
-class QuestionCreateView(generic.CreateView):
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["answers"] = self.object.answers.all()
+        return context
+
+class QuestionCreateView(LoginRequiredMixin,generic.CreateView):
       template_name = "questions/question-write.html"
       model = Question
       form_class = QuestionForm
@@ -68,3 +73,20 @@ class QuestionDeleteView(LoginRequiredMixin,generic.DeleteView):
             return redirect(self.success_url)
 
         return super().dispatch(request, *args, **kwargs)
+
+class AnswerCreateView(LoginRequiredMixin,generic.View):
+    def post(self, request, pk):
+            question = get_object_or_404(Question, pk=pk)
+            description = request.POST.get("description")
+    
+            if not description:
+                messages.error(request, "متن پاسخ نباید خالی باشد.")
+                return redirect(question.get_absolute_url())
+            Answer.objects.create(
+                question=question,
+                user=request.user,
+                description=description,
+            )
+    
+            messages.success(request, "پاسخ شما ثبت شد.")
+            return redirect(question.get_absolute_url())

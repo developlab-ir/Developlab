@@ -11,8 +11,26 @@
 {% endblock styles %}
 
 {% block content %}
-<h2>{{ question.title }}</h2>
-<p>{{ question.description }}</p>
+<div class="card">
+    <h2 class="card-header">{{ question.title }}</h2>
+    <p class="card-body">{{ question.description }}</p>
+</div>
+<hr>
+<h3>پاسخ ها</h3>
+
+<form action="{% url 'qa:answer-create' question.id %}" method="post" class="mb-2 ps-3 form-control">
+        {% csrf_token %}
+        <textarea class="mb-1 form-control" name="description" rows="2" placeholder="نظری بنویسید..." required></textarea>
+        <button type="submit" class="btn btn-secondary btn-sm">ارسال پاسخ</button>
+</form>
+
+{% for answer in answers %}
+<div class="card">
+    <p>{{ answer.description }}</p>
+</div>
+{% empty %}
+<strong>هیچ پاسخی ثبت نشده</strong>
+{% endfor %}
 {% endblock content %}
 
 {% block scripts %}

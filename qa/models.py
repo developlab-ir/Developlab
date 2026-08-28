@@ -4,7 +4,7 @@ from django.urls import reverse
 
 class Question(models.Model):
     Types = (
-        ("programing","برنامه نویسی"),
+        ("programming","برنامه نویسی"),
         ("technical","فنی"),
         ("general","عمومی"),
     )
@@ -36,7 +36,7 @@ class Answer(models.Model):
     description = models.TextField(verbose_name="توضیحات")
 
     user = models.ForeignKey("accounts.CustomUser",on_delete=models.CASCADE)
-    question = models.ForeignKey(Question,on_delete=models.CASCADE)
+    question = models.ForeignKey(Question,on_delete=models.CASCADE,related_name="answers")
 
     is_active = models.BooleanField("فعال", default=True)
     is_best = models.BooleanField("بهترین پاسخ", default=False)
