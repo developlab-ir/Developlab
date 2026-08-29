@@ -29,9 +29,9 @@
         <div id="qa" class="accordion-collapse collapse" data-bs-parent="#sidebarAccordion">
             <div class="accordion-body">
                 <ul class="nav flex-column">
-                    <li><a href="#" class="nav-link text-light">صفحه ی اصلی</a></li>
+                    <li><a href="{% url 'qa:question-list' %}" class="nav-link text-light">صفحه ی اصلی</a></li>
                     <li><a href="#" class="nav-link text-light">داشبورد</a></li>
-                    <li><a href="#" class="nav-link text-light">نوشتن سوال جدید</a></li>
+                    <li><a href="{% url 'qa:question-create' %}" class="nav-link text-light">نوشتن سوال جدید</a></li>
                 </ul>
             </div>
         </div>
